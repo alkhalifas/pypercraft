@@ -1,8 +1,14 @@
+"""
+Pypercraft Class
+"""
 import openai
 from langchain import PromptTemplate
 
 
 class Pypercraft:
+    """
+    Pypercraft class that constructs a full paper
+    """
     def __init__(self, query, topic, num_pages, api_key):
         openai.api_key = api_key
         self.user_query = query
@@ -14,7 +20,8 @@ class Pypercraft:
             "body": "",
             "conclusion": ""
         }
-        self.system_role = "You are a helpful AI assistant that specializes in writing articles and papers."
+        self.system_role = """You are a helpful AI assistant that specializes in
+        writing articles and papers."""
 
     def generate_title(self):
         """
@@ -32,7 +39,9 @@ class Pypercraft:
                 Return the result as a single string, and do not mention the fact that this is a title or a paper.
                 """
 
-        prompt = PromptTemplate.from_template(template).format(idea=self.user_query, topic=self.topic)
+        prompt = PromptTemplate.from_template(template).format(
+            idea=self.user_query,
+            topic=self.topic)
 
         completion = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
@@ -163,5 +172,3 @@ class Pypercraft:
         print("Done construct")
 
         return self.paper
-
-
