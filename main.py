@@ -12,4 +12,3 @@ if __name__ == '__main__':
     paper = pypercraft.Pypercraft("A paper about starships from starwars", "space", 3, api_key).construct()
 
     print(paper)
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
