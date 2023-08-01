@@ -162,13 +162,9 @@ class Pypercraft:
         :return:
         """
 
-        print("Reached construct")
-
         self.paper["title"] = self.generate_title()
         self.paper["introduction"] = self.generate_introduction()
         self.paper["body"] = self.generate_body()
         self.paper["conclusion"] = self.generate_conclusion()
-
-        print("Done construct")
 
         return self.paper
