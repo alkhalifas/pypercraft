@@ -3,6 +3,8 @@ Pypercraft Class
 """
 import openai
 from langchain import PromptTemplate
+from pypercraft.prompts import GENERATE_TITLE_PROMPT, GENERATE_INTRODUCTION_PROMPT, \
+    GENERATE_BODY_PROMPT, GENERATE_CONCLUSION_PROMPT
 
 
 class Pypercraft:
@@ -29,17 +31,7 @@ class Pypercraft:
         :return: str
         """
 
-        template = """
-                Generate an appropriate clever title for the paper concerning the following idea and topic:
-
-                Idea: {idea}
-
-                Topic: {topic}
-
-                Return the result as a single string, and do not mention the fact that this is a title or a paper.
-                """
-
-        prompt = PromptTemplate.from_template(template).format(
+        prompt = PromptTemplate.from_template(GENERATE_TITLE_PROMPT).format(
             idea=self.user_query,
             topic=self.topic)
 
@@ -60,19 +52,7 @@ class Pypercraft:
         :return: str
         """
 
-        template = """
-        Generate an appropriate introduction for the paper concerning the following idea and topic:
-
-        Idea: {idea}
-
-        Topic: {topic}
-        
-        Make sure the length of the introduction is appropriate for a paper that is {num_pages} pages long.
-
-        Return the result as a single string, and do not mention the fact that this is a introduction or a paper.
-        """
-
-        prompt = PromptTemplate.from_template(template).format(
+        prompt = PromptTemplate.from_template(GENERATE_INTRODUCTION_PROMPT).format(
             idea=self.user_query,
             topic=self.topic,
             num_pages=self.num_pages)
@@ -94,19 +74,7 @@ class Pypercraft:
         :return: str
         """
 
-        template = """
-        Generate appropriate body paragraphs for the paper concerning the following idea and topic:
-
-        Idea: {idea}
-
-        Topic: {topic}
-
-        Make sure the length of the body is appropriate for a paper that is {num_pages} pages long.
-
-        Return the result as a single string, and do not mention the fact that this is a body or a paper.
-        """
-
-        prompt = PromptTemplate.from_template(template).format(
+        prompt = PromptTemplate.from_template(GENERATE_BODY_PROMPT).format(
             idea=self.user_query,
             topic=self.topic,
             num_pages=self.num_pages)
@@ -128,19 +96,7 @@ class Pypercraft:
         :return: str
         """
 
-        template = """
-        Generate an appropriate conclusion for the paper concerning the following idea and topic:
-
-        Idea: {idea}
-
-        Topic: {topic}
-
-        Make sure the length of the conclusion is appropriate for a paper that is {num_pages} pages long.
-
-        Return the result as a single string, and do not mention the fact that this is a conclusion or a paper.
-        """
-
-        prompt = PromptTemplate.from_template(template).format(
+        prompt = PromptTemplate.from_template(GENERATE_CONCLUSION_PROMPT).format(
             idea=self.user_query,
             topic=self.topic,
             num_pages=self.num_pages)
