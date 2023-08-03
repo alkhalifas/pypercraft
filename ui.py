@@ -5,14 +5,14 @@ from docx import Document
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 
+
 def main():
-    st.title("Pypercraft Streamlit App")
+    st.title("Pypercraft Paper Generator")
 
     # User input
     query = st.text_input("Enter your query:", "Enter your query here...")
     topic = st.text_input("Enter the topic:", "Enter the topic here...")
     num_pages = st.number_input("Number of pages:", min_value=1, value=5, step=1)
-
 
     # Generate paper on button click
     if st.button("Generate Paper"):
@@ -36,12 +36,11 @@ def main():
         st.write(paper["conclusion"])
 
     # Export to DOCX and PDF on button click
-    if st.button("Export as DOCX and PDF"):
-        st.write(st.session_state.paper["title"])
+    if st.button("Generate Document"):
         if st.session_state.paper:
             export_document(st.session_state.paper)
         else:
-            st.warning("Please generate the paper first before exporting.")
+            st.warning("Error occurred. Please try again?")
 
 
 def export_document(paper):
@@ -58,15 +57,27 @@ def export_document(paper):
     doc.save(doc_filename)
     st.success(f"DOCX file generated: {doc_filename}")
 
+    # Read the content of the temporary file
+    with open(doc_filename, "rb") as file:
+        data = file.read()
+
+    # Display a download button with the file content
+    st.download_button(
+        label="Download DOCX",
+        data=data,
+        file_name="generated_file.docx",
+        mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    )
+
     # Save as PDF
-    pdf_filename = "generated_paper.pdf"
-    c = canvas.Canvas(pdf_filename, pagesize=letter)
-    c.drawString(72, 800, paper["title"])
-    c.drawString(72, 750, paper["introduction"])
-    c.drawString(72, 700, paper["body"])
-    c.drawString(72, 650, paper["conclusion"])
-    c.save()
-    st.success(f"PDF file generated: {pdf_filename}")
+    # pdf_filename = "generated_paper.pdf"
+    # c = canvas.Canvas(pdf_filename, pagesize=letter)
+    # c.drawString(72, 800, paper["title"])
+    # c.drawString(72, 750, paper["introduction"])
+    # c.drawString(72, 700, paper["body"])
+    # c.drawString(72, 650, paper["conclusion"])
+    # c.save()
+    # st.success(f"PDF file generated: {pdf_filename}")
 
 
 if __name__ == "__main__":
