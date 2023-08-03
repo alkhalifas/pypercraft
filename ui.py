@@ -13,6 +13,7 @@ def main():
     topic = st.text_input("Enter the topic:", "Enter the topic here...")
     num_pages = st.number_input("Number of pages:", min_value=1, value=5, step=1)
 
+
     # Generate paper on button click
     if st.button("Generate Paper"):
         api_key = os.getenv("OPENAI_API_KEY")
@@ -20,6 +21,7 @@ def main():
 
         with st.spinner("Generating Paper..."):
             paper = pypercraft.construct()
+            st.session_state.paper = paper
 
         st.subheader("Title")
         st.write(paper["title"])
@@ -35,7 +37,11 @@ def main():
 
     # Export to DOCX and PDF on button click
     if st.button("Export as DOCX and PDF"):
-        export_document(paper)
+        st.write(st.session_state.paper["title"])
+        if st.session_state.paper:
+            export_document(st.session_state.paper)
+        else:
+            st.warning("Please generate the paper first before exporting.")
 
 
 def export_document(paper):
