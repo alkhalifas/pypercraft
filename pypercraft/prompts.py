@@ -15,7 +15,8 @@ GENERATE_INTRODUCTION_PROMPT = """
 
         Topic: {topic}
 
-        Make sure the length of the introduction is appropriate for a paper that is {num_pages} pages long.
+        Make sure the length of the introduction is appropriate for a paper that is {num_pages} pages long. Note 
+        that the average page is 500 words.
 
         Return the result as a single string, and do not mention the fact that this is a introduction or a paper.
         """
@@ -27,7 +28,10 @@ GENERATE_BODY_PROMPT = """
 
         Topic: {topic}
 
-        Make sure the length of the body is appropriate for a paper that is {num_pages} pages long.
+        Make sure the length of the body is appropriate for a paper that is {num_pages} pages long. Note 
+        that the average page is 500 words.
+        
+        Do not add a conclusion here, as this is meant to only be the body paragraphs.
 
         Return the result as a single string, and do not mention the fact that this is a body or a paper.
         """
@@ -39,7 +43,8 @@ GENERATE_CONCLUSION_PROMPT = """
 
         Topic: {topic}
 
-        Make sure the length of the conclusion is appropriate for a paper that is {num_pages} pages long.
+        Make sure the length of the conclusion is appropriate for a paper that is {num_pages} pages long. Note 
+        that the average page is 500 words.
 
         Return the result as a single string, and do not mention the fact that this is a conclusion or a paper.
         """

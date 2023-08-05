@@ -3,6 +3,7 @@ Pypercraft Class
 """
 import openai
 from langchain import PromptTemplate
+from docx import Document
 from pypercraft.prompts import GENERATE_TITLE_PROMPT, GENERATE_INTRODUCTION_PROMPT, \
     GENERATE_BODY_PROMPT, GENERATE_CONCLUSION_PROMPT
 
@@ -124,3 +125,18 @@ class Pypercraft:
         self.paper["conclusion"] = self.generate_conclusion()
 
         return self.paper
+
+    def export_docx(self, file_path):
+        """
+        Exports file as docx
+        """
+        doc = Document()
+
+        # Adding title, introduction, body, and conclusion to the DOCX document
+        doc.add_heading(self.paper["title"], level=1)
+        doc.add_paragraph(self.paper["introduction"])
+        doc.add_paragraph(self.paper["body"])
+        doc.add_paragraph(self.paper["conclusion"])
+
+        # Save as DOCX
+        doc.save(file_path)

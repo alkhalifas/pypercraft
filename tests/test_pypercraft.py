@@ -51,6 +51,22 @@ class TestPypercraft(unittest.TestCase):
         self.assertNotEqual(paper["body"], "")
         self.assertNotEqual(paper["conclusion"], "")
 
+    def test_construct_export(self):
+
+        paper = self.pypercraft.construct()
+
+        self.assertIsInstance(paper, dict)
+        self.assertIn("title", paper)
+        self.assertIn("introduction", paper)
+        self.assertIn("body", paper)
+        self.assertIn("conclusion", paper)
+        self.assertNotEqual(paper["title"], "")
+        self.assertNotEqual(paper["introduction"], "")
+        self.assertNotEqual(paper["body"], "")
+        self.assertNotEqual(paper["conclusion"], "")
+        self.pypercraft.export_docx("tmp/test_file.docx")
+
+
 
 if __name__ == "__main__":
     unittest.main()

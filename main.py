@@ -9,6 +9,10 @@ if __name__ == '__main__':
 
     api_key = os.getenv("OPENAI_API_KEY")
 
-    paper = pypercraft.Pypercraft("A paper about starships from starwars", "space", 3, api_key).construct()
+    craft = pypercraft.Pypercraft("A paper about starships from starwars", "space", 3, api_key)
+
+    paper = craft.construct()
+
+    craft.export_docx('tmp/test.docx')
 
     print(paper)

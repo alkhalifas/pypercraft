@@ -53,7 +53,7 @@ def export_document(paper):
     doc.add_paragraph(paper["conclusion"])
 
     # Save as DOCX
-    doc_filename = "generated_paper.docx"
+    doc_filename = "tmp/generated_paper.docx"
     doc.save(doc_filename)
     st.success(f"DOCX file generated: {doc_filename}")
 
