@@ -9,7 +9,12 @@ if __name__ == '__main__':
 
     api_key = os.getenv("OPENAI_API_KEY")
 
-    craft = pypercraft.Pypercraft("A Scientific Paper about Deep Learning", "Data Science", 3, api_key)
+    craft = pypercraft.Pypercraft(
+        "A Scientific Paper about Deep Learning",
+        "Data Science",
+        3,
+        "professional",
+        api_key)
 
     paper = craft.construct()
 

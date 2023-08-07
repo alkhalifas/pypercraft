@@ -13,11 +13,12 @@ class Pypercraft:
     Pypercraft class that constructs a full paper
     """
 
-    def __init__(self, query, topic, num_pages, api_key):
+    def __init__(self, query, topic, num_pages, tone, api_key):
         openai.api_key = api_key
         self.user_query = query
         self.topic = topic
         self.num_pages = num_pages
+        self.tone = tone
         self.paper = {
             "title": "",
             "introduction": "",
@@ -60,6 +61,7 @@ class Pypercraft:
         """
 
         prompt = PromptTemplate.from_template(GENERATE_TITLE_PROMPT).format(
+            tone=self.tone,
             idea=self.user_query,
             topic=self.topic)
 
@@ -81,6 +83,7 @@ class Pypercraft:
         """
 
         prompt = PromptTemplate.from_template(GENERATE_INTRODUCTION_PROMPT).format(
+            tone=self.tone,
             idea=self.user_query,
             topic=self.topic,
             num_words=self.word_distribution['intro_words'])
@@ -103,6 +106,7 @@ class Pypercraft:
         """
 
         prompt = PromptTemplate.from_template(GENERATE_BODY_PROMPT).format(
+            tone=self.tone,
             idea=self.user_query,
             topic=self.topic,
             num_words=self.word_distribution['body_words'])
@@ -125,6 +129,7 @@ class Pypercraft:
         """
 
         prompt = PromptTemplate.from_template(GENERATE_CONCLUSION_PROMPT).format(
+            tone=self.tone,
             idea=self.user_query,
             topic=self.topic,
             num_words=self.word_distribution['conclusion_words'])

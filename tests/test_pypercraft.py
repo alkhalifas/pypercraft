@@ -18,7 +18,14 @@ class TestPypercraft(unittest.TestCase):
         cls.query = "An article about deep learning applications on space ships in star wars movie series"
         cls.topic = "Deep Learning and Star Wars"
         cls.num_pages = 2
-        cls.pypercraft = Pypercraft(cls.query, cls.topic, cls.num_pages, cls.api_key)
+        cls.tone = "professional"
+        cls.pypercraft = Pypercraft(cls.query, cls.topic, cls.num_pages, cls.tone, cls.api_key)
+
+    def test_check_inputs(self):
+        self.assertEqual(self.tone, "professional")
+        self.assertEqual(self.query, "An article about deep learning applications on space ships in star wars movie series")
+        self.assertEqual(self.topic, "Deep Learning and Star Wars")
+        self.assertEqual(self.num_pages, 2)
 
     def test_generate_title(self):
         title = self.pypercraft.generate_title()

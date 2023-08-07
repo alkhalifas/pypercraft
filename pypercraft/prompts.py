@@ -4,6 +4,8 @@ GENERATE_TITLE_PROMPT = """
         Idea: {idea}
 
         Topic: {topic}
+        
+        Make sure you use a {tone} tone in your writing style.
 
         Return the result as a single string, and do not mention the fact that this is a title or a paper.
         """
@@ -16,6 +18,8 @@ GENERATE_INTRODUCTION_PROMPT = """
         Topic: {topic}
 
         The length must be {num_words} words.
+        
+        Make sure you use a {tone} tone in your writing style.
 
         Return the result as a single string, and do not mention the fact that this is a introduction or a paper.
         """
@@ -31,6 +35,8 @@ GENERATE_BODY_PROMPT = """
         
         Discuss the topic and idea extensively, to ensure you meet the word requirement of {num_words} words.
         
+        Make sure you use a {tone} tone in your writing style.
+        
         Do not add a conclusion here.
 
         Return the result as a single string, and do not mention the fact that this is a body or a paper.
@@ -44,6 +50,8 @@ GENERATE_CONCLUSION_PROMPT = """
         Topic: {topic}
 
         The length must be {num_words} words.
+        
+        Make sure you use a {tone} tone in your writing style.
 
         Return the result as a single string, and do not mention the fact that this is a conclusion or a paper.
         """
