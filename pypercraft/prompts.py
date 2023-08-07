@@ -32,7 +32,7 @@ GENERATE_BODY_PROMPT = """
         Current Introduction: {introduction}
         
         Using the previous introduction, generate appropriate body paragraphs for the paper 
-        concerning the following idea and topic:
+        concerning the following idea and topic, but do not add a conclusion:
 
         Idea: {idea}
 
