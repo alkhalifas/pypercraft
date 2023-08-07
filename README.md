@@ -1,9 +1,9 @@
 # Pypercraft
-#### A Simple Application of LLMs to Generate Documents
+#### An Application of LLMs to Generate Documents
 
 ## Live Demo
 
-A live demo of the Streamlit application can be seen here
+A live demo of the Streamlit application can be seen [here](https://pypercraft-8c8dd60022df.herokuapp.com/)
 
 ## Quick Start Guide
 
