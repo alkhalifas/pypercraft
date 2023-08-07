@@ -7,13 +7,15 @@ import streamlit as st
 from docx import Document
 from pypercraft.pypercraft import Pypercraft
 
+st.set_page_config(page_title="Pypercraft")
+
 
 def main():
     """
     Runs an example of Pypercraft
     """
 
-    st.title("Pypercraft Paper Generator")
+    st.title("Pypercraft - Generate Papers using GenAI")
 
     # User input
     query = st.text_input("Enter your query:", placeholder="Enter your query here...")
@@ -22,7 +24,7 @@ def main():
     col1, col2 = st.columns(2)
 
     with col1:
-        num_pages = st.number_input("Number of pages:", min_value=1, value=2, step=1)
+        num_pages = st.number_input("Number of pages:", min_value=1, value=2, step=1, max_value=3)
     with col2:
         tone = st.selectbox("Select Tone", ["Professional", "Cute", "Artistic", "Moderate"])
 
