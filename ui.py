@@ -1,10 +1,17 @@
-import streamlit as st
+"""
+Streamlit UI for Pypercraft
+"""
+
 import os
-from pypercraft.pypercraft import Pypercraft
+import streamlit as st
 from docx import Document
+from pypercraft.pypercraft import Pypercraft
 
 
 def main():
+    """
+    Runs an example of Pypercraft
+    """
 
     st.title("Pypercraft Paper Generator")
 
@@ -22,7 +29,7 @@ def main():
     # Generate paper on button click
     if st.button("Generate Paper"):
         api_key = os.getenv("OPENAI_API_KEY")
-        pypercraft = Pypercraft(query, topic, num_pages, api_key)
+        pypercraft = Pypercraft(query, topic, num_pages, tone, api_key)
 
         with st.spinner("Generating Paper..."):
             paper = pypercraft.construct()
@@ -43,6 +50,9 @@ def main():
 
 
 def export_document(paper):
+    """
+    Generates and exports the docx document
+    """
     doc = Document()
 
     # Adding title, introduction, body, and conclusion to the DOCX document

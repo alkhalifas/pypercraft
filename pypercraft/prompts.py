@@ -1,3 +1,7 @@
+"""
+Prompts list for Pypercraft
+"""
+
 GENERATE_TITLE_PROMPT = """
         Generate an appropriate clever title for the paper concerning the following idea and topic:
 

@@ -30,6 +30,9 @@ class Pypercraft:
         writing articles and papers."""
 
     def distribute_words(self, num_pages):
+        """
+        Determines the average number of words to assign each section
+        """
         words_per_page = 500
         total_words = num_pages * words_per_page
 
