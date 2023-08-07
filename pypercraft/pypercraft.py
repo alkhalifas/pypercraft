@@ -36,17 +36,10 @@ class Pypercraft:
         # Divide the total words among the sections
         intro_ratio = 0.1  # Introduction ratio, 10% of the total words
         conclusion_ratio = 0.1  # Conclusion ratio, 10% of the total words
-        # body_ratio = 1 - intro_ratio - conclusion_ratio  # Body ratio, remaining words
 
         intro_words = int(total_words * intro_ratio)
         conclusion_words = int(total_words * conclusion_ratio)
         body_words = total_words - intro_words - conclusion_words
-
-        print({
-            "intro_words": intro_words,
-            "body_words": body_words,
-            "conclusion_words": conclusion_words
-        })
 
         return {
             "intro_words": intro_words,
@@ -106,6 +99,7 @@ class Pypercraft:
         """
 
         prompt = PromptTemplate.from_template(GENERATE_BODY_PROMPT).format(
+            introduction=self.paper['introduction'],
             tone=self.tone,
             idea=self.user_query,
             topic=self.topic,
@@ -156,9 +150,9 @@ class Pypercraft:
         self.paper["body"] = self.generate_body()
         self.paper["conclusion"] = self.generate_conclusion()
 
-        print("Generation Complete")
-        for key in self.paper.keys():
-            print(f"{key}: {len(self.paper[key].split(' '))}")
+        # print("Generation Complete")
+        # for key in self.paper.keys():
+        #     print(f"{key}: {len(self.paper[key].split(' '))}")
 
         return self.paper
 
