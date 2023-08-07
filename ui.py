@@ -2,17 +2,22 @@ import streamlit as st
 import os
 from pypercraft.pypercraft import Pypercraft
 from docx import Document
-from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
 
 
 def main():
+
     st.title("Pypercraft Paper Generator")
 
     # User input
-    query = st.text_input("Enter your query:", "Enter your query here...")
-    topic = st.text_input("Enter the topic:", "Enter the topic here...")
-    num_pages = st.number_input("Number of pages:", min_value=1, value=5, step=1)
+    query = st.text_input("Enter your query:", placeholder="Enter your query here...")
+    topic = st.text_input("Enter the topic:", placeholder="Enter the topic here...")
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        num_pages = st.number_input("Number of pages:", min_value=1, value=2, step=1)
+    with col2:
+        tone = st.selectbox("Select Tone", ["Professional", "Cute", "Artistic", "Moderate"])
 
     # Generate paper on button click
     if st.button("Generate Paper"):
@@ -34,13 +39,7 @@ def main():
 
         st.subheader("Conclusion")
         st.write(paper["conclusion"])
-
-    # Export to DOCX and PDF on button click
-    if st.button("Generate Document"):
-        if st.session_state.paper:
-            export_document(st.session_state.paper)
-        else:
-            st.warning("Error occurred. Please try again?")
+        export_document(st.session_state.paper)
 
 
 def export_document(paper):
@@ -63,21 +62,11 @@ def export_document(paper):
 
     # Display a download button with the file content
     st.download_button(
-        label="Download DOCX",
+        label="Download docx",
         data=data,
-        file_name="generated_file.docx",
+        file_name="pypercraft_paper.docx",
         mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     )
-
-    # Save as PDF
-    # pdf_filename = "generated_paper.pdf"
-    # c = canvas.Canvas(pdf_filename, pagesize=letter)
-    # c.drawString(72, 800, paper["title"])
-    # c.drawString(72, 750, paper["introduction"])
-    # c.drawString(72, 700, paper["body"])
-    # c.drawString(72, 650, paper["conclusion"])
-    # c.save()
-    # st.success(f"PDF file generated: {pdf_filename}")
 
 
 if __name__ == "__main__":
