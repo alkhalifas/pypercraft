@@ -15,7 +15,8 @@ def main():
     Runs an example of Pypercraft
     """
 
-    st.title("Pypercraft - Generate Papers using GenAI")
+    st.title("Pypercraft")
+    st.subheader("Generate and Download Quality Papers with GenAI")
 
     # User input
     query = st.text_input("Enter your query:", placeholder="Enter your query here...")
