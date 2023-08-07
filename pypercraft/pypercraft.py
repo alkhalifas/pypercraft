@@ -12,6 +12,7 @@ class Pypercraft:
     """
     Pypercraft class that constructs a full paper
     """
+
     def __init__(self, query, topic, num_pages, api_key):
         openai.api_key = api_key
         self.user_query = query
@@ -23,8 +24,34 @@ class Pypercraft:
             "body": "",
             "conclusion": ""
         }
+        self.word_distribution = self.distribute_words(num_pages)
         self.system_role = """You are a helpful AI assistant that specializes in
         writing articles and papers."""
+
+    def distribute_words(self, num_pages):
+        words_per_page = 500
+        total_words = num_pages * words_per_page
+
+        # Divide the total words among the sections
+        intro_ratio = 0.1  # Introduction ratio, 10% of the total words
+        conclusion_ratio = 0.1  # Conclusion ratio, 10% of the total words
+        # body_ratio = 1 - intro_ratio - conclusion_ratio  # Body ratio, remaining words
+
+        intro_words = int(total_words * intro_ratio)
+        conclusion_words = int(total_words * conclusion_ratio)
+        body_words = total_words - intro_words - conclusion_words
+
+        print({
+            "intro_words": intro_words,
+            "body_words": body_words,
+            "conclusion_words": conclusion_words
+        })
+
+        return {
+            "intro_words": intro_words,
+            "body_words": body_words,
+            "conclusion_words": conclusion_words
+        }
 
     def generate_title(self):
         """
@@ -56,7 +83,7 @@ class Pypercraft:
         prompt = PromptTemplate.from_template(GENERATE_INTRODUCTION_PROMPT).format(
             idea=self.user_query,
             topic=self.topic,
-            num_pages=self.num_pages)
+            num_words=self.word_distribution['intro_words'])
 
         completion = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
@@ -78,7 +105,7 @@ class Pypercraft:
         prompt = PromptTemplate.from_template(GENERATE_BODY_PROMPT).format(
             idea=self.user_query,
             topic=self.topic,
-            num_pages=self.num_pages)
+            num_words=self.word_distribution['body_words'])
 
         completion = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
@@ -100,7 +127,7 @@ class Pypercraft:
         prompt = PromptTemplate.from_template(GENERATE_CONCLUSION_PROMPT).format(
             idea=self.user_query,
             topic=self.topic,
-            num_pages=self.num_pages)
+            num_words=self.word_distribution['conclusion_words'])
 
         completion = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
@@ -123,6 +150,10 @@ class Pypercraft:
         self.paper["introduction"] = self.generate_introduction()
         self.paper["body"] = self.generate_body()
         self.paper["conclusion"] = self.generate_conclusion()
+
+        print("Generation Complete")
+        for key in self.paper.keys():
+            print(f"{key}: {len(self.paper[key].split(' '))}")
 
         return self.paper
 
