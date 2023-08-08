@@ -1,5 +1,5 @@
 """
-Main.py File to Start Applicaton
+Main.py File to Start Application
 """
 
 import os
