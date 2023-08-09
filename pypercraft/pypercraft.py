@@ -2,6 +2,7 @@
 Pypercraft Class
 """
 import openai
+import threading
 from langchain import PromptTemplate
 from docx import Document
 from pypercraft.prompts import GENERATE_TITLE_PROMPT, GENERATE_INTRODUCTION_PROMPT, \
@@ -70,6 +71,8 @@ class Pypercraft:
             ]
         )
 
+        self.paper['title'] = completion.choices[0].message['content']
+
         return completion.choices[0].message['content']
 
     def generate_introduction(self):
@@ -92,6 +95,8 @@ class Pypercraft:
                 {"role": "user", "content": prompt}
             ]
         )
+
+        self.paper['introduction'] = completion.choices[0].message['content']
 
         return completion.choices[0].message['content']
 
@@ -117,6 +122,8 @@ class Pypercraft:
             ]
         )
 
+        self.paper['body'] = completion.choices[0].message['content']
+
         return completion.choices[0].message['content']
 
     def generate_conclusion(self):
@@ -140,22 +147,40 @@ class Pypercraft:
             ]
         )
 
+        self.paper['conclusion'] = completion.choices[0].message['content']
+
         return completion.choices[0].message['content']
 
-    def construct(self):
+    def construct(self, parallel=False):
         """
         Queries the API to generate a document
         :return:
         """
+        if parallel:
 
-        self.paper["title"] = self.generate_title()
-        self.paper["introduction"] = self.generate_introduction()
-        self.paper["body"] = self.generate_body()
-        self.paper["conclusion"] = self.generate_conclusion()
+            # Create thread objects
+            thread1 = threading.Thread(target=self.generate_title)
+            thread2 = threading.Thread(target=self.generate_introduction)
+            thread3 = threading.Thread(target=self.generate_body)
+            thread4 = threading.Thread(target=self.generate_conclusion)
 
-        # print("Generation Complete")
-        # for key in self.paper.keys():
-        #     print(f"{key}: {len(self.paper[key].split(' '))}")
+            # Start the threads
+            thread1.start()
+            thread2.start()
+            thread3.start()
+            thread4.start()
+
+            # Wait for threads to finish
+            thread1.join()
+            thread2.join()
+            thread3.join()
+            thread4.join()
+
+        else:
+            self.generate_title()
+            self.generate_introduction()
+            self.generate_body()
+            self.generate_conclusion()
 
         return self.paper
 

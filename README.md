@@ -19,6 +19,8 @@ A live demo of the Streamlit application can be seen [here](https://pypercraft-8
 
     pip install pypercraft
 
+    from pypercraft import pypercraft
+
     craft = pypercraft.Pypercraft(
 
             # Describe the paper you want to generate
