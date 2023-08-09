@@ -6,7 +6,6 @@ import os
 from pypercraft import pypercraft
 
 if __name__ == '__main__':
-    print('PyCharm')
 
     api_key = os.getenv("OPENAI_API_KEY")
 

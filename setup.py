@@ -10,7 +10,7 @@ setup(
     packages=find_packages(),
     install_requires=[
         "fastapi == 0.100.1",
-        "langchain == 0.0.249",
+        "langchain == 0.0.258",
         "openai == 0.27.8",
         "uvicorn == 0.23.2",
         "pylint == 2.17.5",
