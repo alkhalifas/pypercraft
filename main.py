@@ -5,6 +5,7 @@ Main.py File to Start Application
 import os
 from pypercraft import pypercraft
 
+
 if __name__ == '__main__':
 
     api_key = os.getenv("OPENAI_API_KEY")
@@ -16,8 +17,10 @@ if __name__ == '__main__':
         tone="professional",
         api_key=api_key)
 
-    paper = craft.construct()
+    paper = craft.construct(parallel=True)
 
     craft.export_docx('tmp/test.docx')
 
     print(paper)
+
+
