@@ -29,7 +29,7 @@ class TestGenerateDocumentAPI(unittest.TestCase):
                                    })
         self.assertEqual(response.status_code, 200)
         self.assertIn("title", response.json())
-        self.assertIn("intro", response.json())
+        self.assertIn("introduction", response.json())
         self.assertIn("body", response.json())
         self.assertIn("conclusion", response.json())
 
