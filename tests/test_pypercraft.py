@@ -39,8 +39,8 @@ class TestPypercraft(unittest.TestCase):
         Tests the inputs to the model
         """
         self.assertEqual(self.tone, "professional")
-        self.assertEqual(self.query, """An article about deep learning applications on
-        space ships in star wars movie series""")
+        self.assertEqual(self.query, """An article about deep learning applications on space
+        ships in star wars movie series""")
         self.assertEqual(self.topic, "Deep Learning and Star Wars")
         self.assertEqual(self.num_pages, 2)
 
@@ -84,7 +84,27 @@ class TestPypercraft(unittest.TestCase):
         """
         Tests the construction method
         """
-        paper = self.pypercraft.construct()
+        paper = self.pypercraft.construct(parallel=False)
+
+        self.assertIsInstance(paper, dict)
+        self.assertIn("title", paper)
+        self.assertIn("introduction", paper)
+        self.assertIn("body", paper)
+        self.assertIn("conclusion", paper)
+        self.assertNotEqual(paper["title"], "")
+        self.assertNotEqual(paper["introduction"], "")
+        self.assertNotEqual(paper["body"], "")
+        self.assertNotEqual(paper["conclusion"], "")
+        self.assertGreater(len(paper["title"]), 10)
+        self.assertGreater(len(paper["introduction"]), 10)
+        self.assertGreater(len(paper["body"]), 10)
+        self.assertGreater(len(paper["conclusion"]), 10)
+
+    def test_construct_parallel(self):
+        """
+        Tests the construction method with parallelization
+        """
+        paper = self.pypercraft.construct(parallel=True)
 
         self.assertIsInstance(paper, dict)
         self.assertIn("title", paper)
@@ -104,7 +124,7 @@ class TestPypercraft(unittest.TestCase):
         """
         Tests the export method
         """
-        paper = self.pypercraft.construct()
+        paper = self.pypercraft.construct(parallel=False)
 
         self.assertIsInstance(paper, dict)
         self.assertIn("title", paper)
